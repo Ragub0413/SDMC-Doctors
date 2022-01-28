@@ -1,103 +1,89 @@
 import React,{useState} from 'react'
-import { Container,Paper,Grid,TextField,Button,Typography, makeStyles,} from '@material-ui/core';
+import { Avatar, Button,TextField, Paper, Grid, Typography, Container, 
+    IconButton,InputAdornment } from '@material-ui/core';
 import { COLORS } from '../Styles/color.styles';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signInStaff } from '../Connection/Action/staffs';
-
-
+import useStyles from './Style'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+const initialState = { StaffId:'', password:''  };
 const Auth = () =>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
+    const handleClickRepeatPassword = () => setShowPasswords(!showPasswords);
+    const [showPasswords, setShowPasswords] = useState(false);
 
-    const [form,setForm]=useState({ StaffId:'', password: ''})
+    const [values,setValues] = useState(initialState);
     const handleChange = e => {
         const {name, value} = e.target
-        setForm({
-            ...form,
+        setValues({
+            ...values,
             [name]: value
         })
     };
 
     const handleSubmit =(e) =>{
         e.preventDefault();
-        console.log(form);
-        dispatch(signInStaff(form,navigate))
+        console.log(values);
+        dispatch(signInStaff(values,navigate))
+    }
+    const handleForgotPassword =() =>{
+        console.log('DITO YUNG PASSWORD')
     }
 
-
     return(
-        <Container component="main" maxWidth="sm">
-            <Paper className={classes.paper} elevation={3}>
-                <Typography className={classes.logintxt} >Log in</Typography>
-
-            <form className={classes.form} onSubmit={handleSubmit}>
-                <Grid container spacing={4} direction="column">
-                    <Grid item>
-                       <TextField className={classes.txtfield} name="StaffId"  label="ID Number" 
-                        placeholder='Enter your ID Number'  autoFocus
-                        value={form.StaffId} onChange={handleChange} 
-                        variant="outlined" />
+        <Container component="main" maxWidth="xs">
+        <Paper className={classes.paper} elevation={3}>
+  
+            {/* <Avatar className={classes.avatar}>
+                <LockOutlinedIcon/>
+            </Avatar> */}
+            <Typography component="h1" variant="h5"> Sign In</Typography>
+            <form className={classes.form} autoComplete="off" onSubmit={handleSubmit} >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}> 
+                        <TextField  name="StaffId" label="StaffId" 
+                            type="StaffId" placeholder='Enter your ID Number' 
+                            value={values.StaffId} onChange={handleChange} 
+                            fullWidth  variant="outlined" />
                     </Grid>
+
+                     <Grid item xs={12}>
+                        <TextField  name="password" label="Password" type="password" placeholder='Enter your password'
+                                value={values.password} onChange={handleChange} 
+                                fullWidth  variant="outlined"  
+                                type={showPasswords ? "text" : "password"} 
+                                    //onChange={someChangeHandler}
+                                    InputProps={{endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickRepeatPassword}
+                                            >
+                                            {showPasswords ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                        )
+                                    }}/>
+                        </Grid>
+                </Grid>
+                <Button fullWidth type="submit" variant="contained" color="primary" className={classes.submit}>Login</Button>
+                <Grid container justify="flex-end">
                     <Grid item>
-                    <TextField  className={classes.txtfield} name="password" label="Password" type="password" placeholder='Enter your password'
-                    value={form.password} onChange={handleChange} 
-                    fullWidth  variant="outlined"  />
+                        <Button onClick={handleForgotPassword}>
+                            Forgot Password?
+                        </Button>
                     </Grid>
                 </Grid>
-                <Button type='submit'className={classes.submit}> Log in</Button>
-            </form>
-           
-            </Paper>
+             </form>
+        </Paper>
         </Container>
     )
 }
 
-const useStyles = makeStyles((theme) => ({
-
-    paper: {
-        marginTop: "100px",
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-        },
-
-    typos:{
-        fontSize: 'clamp(1.5rem,6vw,4rem)',
-    },
-
-    form:{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: "100px",
-    
-    },
-    submit:{
-        backgroundColor: COLORS.BLUE,
-        color: "white",
-        marginTop: "30px",
-        marginBottom: "30px",
-        width: "50%",
-    },
-
-    logintxt: {
-        marginTop: "25px",
-        fontSize: "50px",
-        fontWeight: "bold",
-        fontFamily: "Pathway Gothic One",
-    },
-
-    txtfield: {
-        width: "100%",
-        height: "100%",
-    }
-
-    
-}))
 
 export default Auth

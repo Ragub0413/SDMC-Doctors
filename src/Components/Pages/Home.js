@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+import MaterialTable from 'material-table';
 import { Typography, Button,
     Paper, Container, Grid, Card, 
     CircularProgress,CardContent, CardActionArea,
@@ -11,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import { COLORS } from "../Styles/color.styles";
 
 const Home = () =>{
-    
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const classes = useStyles();
     const [searchData,setSearchData]= useState('');
     const [data,setData] =useState([])
@@ -53,7 +54,7 @@ useEffect(function () {
                         }).map((appointment,index) => (
                            
                             <Grid item key={index} xs={12} >
-                    {appointment.appointmentStatus === 'Approved' ?
+                    {appointment.doctorsName === user?.result._id ?
                              (
                             <Card className={classes.card1 }>
                                 <CardContent>

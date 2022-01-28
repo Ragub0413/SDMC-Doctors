@@ -13,3 +13,15 @@ export const signInStaff = (formData,navigate) => async (dispatch) => {
       alert("Please Check your Information");
     }
   };
+
+  export const updatePersonalInfo =(id,perInUp)=> async (dispatch)=>{
+    try{
+      const {data} = await api.updatePersonalInfo(id,perInUp);
+      dispatch({type: 'UPDATE',payload:data})
+      console.log('updated Doctors Information')
+    }
+    catch(error){
+      console.log(error);
+
+    }
+  }

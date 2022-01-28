@@ -22,8 +22,8 @@ const menu = [
       component: "/home",
     },
     {
-      title: "About Us",
-      component: "/",
+      title: "Profile",
+      component: "/profile",
     },
    
   ];
@@ -39,7 +39,6 @@ const menu = [
     
     const logout = () => {
       dispatch({ type: actionType.LOGOUT });
-  
       navigate('/login');
   
       setUser(null);
