@@ -13,7 +13,7 @@ const BasedComplete =() =>{
     return(
         <Container component="main" maxWidth="lg">
            <Paper className={classes.paper} elevation={0}>
-                <Typography component="h1" variant="h5">Pending Appointments</Typography>
+                <Typography component="h1" variant="h5">Completed Appointments</Typography>
            </Paper>
            <CT/>
         </Container>

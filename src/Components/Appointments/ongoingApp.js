@@ -83,7 +83,7 @@ const TodaysAppointment =()=>{
             <MaterialTable  
             icons={tableIcons}
             title="Information"
-            data={filteredtu}
+            data={filteredDate}
             columns={columns}
             components={{
                 Row: props => <CustomRow {...props} handleOpen={handleOpen} />
