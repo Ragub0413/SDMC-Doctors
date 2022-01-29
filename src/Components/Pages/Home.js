@@ -16,15 +16,27 @@ const Home = () =>{
     const classes = useStyles();
     const [searchData,setSearchData]= useState('');
     const [data,setData] =useState([])
+     const [filtered,setFilteredData]= useState([])
+    const [filteredtu,setFilteredDatatu]= useState([])
+    const [filteredDate,setFilteredDataDate]= useState([])
 
 
 useEffect(function () {
     fetch("https://sdmc-clinic.herokuapp.com/appointment/appointmentsss")
     .then(resp=>resp.json())
-    .then(resp=>setData(resp))
+    .then(resp=>setData(resp)) 
 
 })
+useEffect(()=>{
+    setFilteredData(data.filter(d=>d.doctorsName === user?.result._id));
+},[data])
 
+useEffect(()=>{
+    setFilteredDatatu(filtered.filter(d=>d.doctorsStatus === 'Pending'));
+},[filtered])
+useEffect(()=>{
+    setFilteredDataDate(filteredtu.filter(d=>d.dateAndTime === new Date().toISOString));
+},[filteredtu])
 
     return(
         <div>

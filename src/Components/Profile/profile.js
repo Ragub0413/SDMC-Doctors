@@ -4,8 +4,9 @@ import { Typography, makeStyles,Button,
     CircularProgress,CardContent, CardActionArea,
     Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle, TextField, IconButton} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
-
+import {useDispatch} from'react-redux';
 import Autocomplete from '@mui/material/Autocomplete';
+import {updatePersonalInfo} from '../Connection/Action/staffs'
 
 const options = ['Allergists/Immunologists','Anesthesiologists',
 'Cardiologists','Colon and Rectal Surgeons','Critical Care Medicine Specialists',
@@ -16,6 +17,7 @@ const options = ['Allergists/Immunologists','Anesthesiologists',
 
 const Profile_Admin = () =>{
     const classes = useStyles();
+    
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const initialState = {
       // StaffId: '',
@@ -42,6 +44,12 @@ const Profile_Admin = () =>{
        setOpen(false);
      
     }
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        console.log(values)
+        dispatch(updatePersonalInfo(user?.result._id,{...values}))
+        setOpen(false)
+    }
     return (
         <Container component="main" maxWidth="sm">
            
@@ -55,26 +63,26 @@ const Profile_Admin = () =>{
                 <Grid container spacing={2}>
                 <Grid item xs={12} >
                       <Typography className={classes.profiledetails} >{"Employee Number: "}</Typography>
-                      <Typography component="h1" variant="h6">{user?.result.StaffId}</Typography>
+                      <Typography component="h1" variant="h6">{values.StaffId}</Typography>
                   </Grid>
                   <Grid item xs={12}>
                       <Typography className={classes.profiledetails}>Full Name:</Typography>
-                      <Typography component="h1" variant="h6">{user?.result.lastName},{user?.result.firstName} {user?.result.middleName}{user?.result.suffix}</Typography>
+                      <Typography component="h1" variant="h6">{values.lastName},{values.firstName} {values.middleName}{values.suffix}</Typography>
                   </Grid>
                   <Grid item xs={12}>
                       <Typography className={classes.profiledetails}>Email Address:</Typography>
-                      <Typography component="h1" variant="h6">{user?.result.email}</Typography>
+                      <Typography component="h1" variant="h6">{values.email}</Typography>
                   </Grid>
                   <Grid item xs={12}>
                       <Typography className={classes.profiledetails} >Contact Number:</Typography>
-                      <Typography component="h1" variant="h6">{user?.result.contactNumber}</Typography>
+                      <Typography component="h1" variant="h6">{values.contactNumber}</Typography>
                   </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.profiledetails} >Specialisation:</Typography>
-                        <Typography component="h1" variant="h6">{user?.result.doctorsSpeciality}</Typography>
+                        <Typography component="h1" variant="h6">{values.doctorsSpeciality}</Typography>
                     </Grid>
                 </Grid>
-                <Button variant="contained" color="primary"> <EditIcon/>Edit</Button>
+                <Button variant="contained" color="primary" onClick={handleClickedOpen}> <EditIcon/>Edit</Button>
             </Paper>
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -84,7 +92,7 @@ const Profile_Admin = () =>{
                   <Typography component="h1" variant="h5"  className={classes.addstaff}>Employee </Typography>
                   </div>     
           </DialogTitle>
-          <form onSubmit={handleSubmit}>
+          <form  onSubmit={handleSubmit}>
           <Grid container spacing={3}>
               <Grid item xs={12}>
                   <Typography className={classes.numberid} >Employee Number: {user?.result.StaffId} </Typography>
@@ -137,6 +145,7 @@ const Profile_Admin = () =>{
                             id="combo-box-demo"
                             options={options}
                             sx={{ width: 550 }}
+                            value={values.doctorsSpeciality}
                             onChange={(evt,value) => setValues(prev =>({...prev, doctorsSpeciality:value}))}
                           
                             renderInput={(params) => <TextField {...params} label="Specification" />}
@@ -147,7 +156,7 @@ const Profile_Admin = () =>{
          
                           <Grid container justify="center">
                           <Button className={classes.addbtn} type="submit" variant="contained" color="primary">Update</Button>
-                          <Button className={classes.cancelbtn} variant="contained" color="primary" onClick={handleClose}>Cancel</Button>
+                          <Button className={classes.cancelbtn} variant="contained" color="secondary" onClick={handleClose}>Cancel</Button>
       
                           </Grid>
           </form>

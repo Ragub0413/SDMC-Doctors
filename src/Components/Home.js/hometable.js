@@ -52,6 +52,12 @@ const ClientsTB = () =>{
     const handleAcceptYes =()=>{
         dispatch(doctorStatAppointment(values._id,{...stas}))
         setOpenAccept(false)
+        setOpenMenu(false)
+    }
+    const handleDeclineYes =()=>{
+        dispatch(doctorStatAppointment(values._id,{...stasD}))
+        setOpenDecline(false)
+        setOpenMenu(false)
         
     }
     const columns=[
@@ -150,7 +156,7 @@ const ClientsTB = () =>{
                   <Typography>Are you sure you want to decline this appointment?</Typography>
               </DialogContent>
               <Grid container justifyContent='center' alignItems='center'>
-              <Button variant="contained" color="primary" className={classes.addbtn}>Yes</Button>
+              <Button variant="contained" color="primary" className={classes.addbtn} onClick={handleDeclineYes}>Yes</Button>
               <Button variant="contained" color="secondary" className={classes.addbtn} onClick={handleCloseDecline}>No</Button>
               </Grid>
         </Container>

@@ -15,6 +15,12 @@ const HomeMenu =()=>{
     const handleOpens=()=>{
       navigate('/scheduled')
     }
+    const handleToday=()=>{
+      navigate('/today')
+    }
+    const handleComplete=()=>{
+      navigate('/completed')
+    }
     return(
         <Container component="main" maxWidth="lg" >
              <Paper className={classes.paper} elevation={0}>
@@ -31,11 +37,16 @@ const HomeMenu =()=>{
                         <Typography component="h1" variant="h6">Scheduled Appointments</Typography>
                         </Paper>
                     </Grid>
-                    {/* <Grid item sm={4}>
-                        <Paper className={classes.paper1} elevation={4}>
-                        <Typography component="h1" variant="h6">Number of Clients</Typography>
+                    <Grid item sm={6}>
+                        <Paper className={classes.paper1} elevation={4} onClick={handleToday}>
+                        <Typography component="h1" variant="h6">Appointments for Today</Typography>
                         </Paper>
-                    </Grid> */}
+                    </Grid>
+                    <Grid item sm={6}>
+                        <Paper className={classes.paper1} elevation={4} onClick={handleComplete}>
+                        <Typography component="h1" variant="h6">Completed Appointment Records</Typography>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Paper>
         </Container>

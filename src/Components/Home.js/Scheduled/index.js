@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Grid, IconButton } from '@material-ui/core'
 import { MTableBodyRow } from 'material-table'
 import PreviewIcon from '@mui/icons-material/Preview';
-import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 
 const CustomRow = (props) => {
     const [show,setShow]=useState(true);
@@ -19,9 +18,6 @@ const CustomRow = (props) => {
                 <IconButton title="Edit" onClick={()=>alert(props.index)}>
                 <PreviewIcon/>
                 </IconButton>
-                {/* <IconButton title="Edit" onClick={()=>alert(props.index)}>
-                <PreviewIcon/>
-                </IconButton> */}
                 </Grid>
             </Grid>}
             <MTableBodyRow {...props} />

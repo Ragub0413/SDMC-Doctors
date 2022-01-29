@@ -8,6 +8,8 @@ import Profile from '../Profile/profile'
 import HomeMenus from "../Pages/HomeMenu";
 import Hometable from '../Home.js/hometable'
 import Schedule from '../Home.js/Scheduled/ScheduledAppointments'
+import Today from '../Appointments/AppointmentToday'
+import Complete from '../Completed/baseComplete'
 
 const RootRoutes = () =>{
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -35,6 +37,8 @@ const RootRoutes = () =>{
                 <Route exact path='/profile' element={<Profile/>}/>
                 <Route exact path='/hometable/page' element={<Home/>}/>
                 <Route exact path='/scheduled' element={<Schedule/>}/>
+                <Route exact path='/today' element={<Today/>}/>
+                <Route exact path='/completed' element={<Complete/>}/>
                 </Routes>
             </Router>
             )
