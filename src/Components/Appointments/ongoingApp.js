@@ -50,10 +50,10 @@ const TodaysAppointment =()=>{
             },[data])
 
             useEffect(()=>{
-                setFilteredDatatu(filtered.filter(d=>d.doctorsStatus === 'Pending'));
+                setFilteredDatatu(filtered.filter(d=>d.doctorsStatus === 'Approved'));
             },[filtered])
             useEffect(()=>{
-                setFilteredDataDate(filteredtu.filter(d=>d.dateAndTime === new Date().toISOString));
+                setFilteredDataDate(filteredtu.filter(d=>d.dateAndTime.split("T")[0] === new Date().toISOString().split("T")[0]));
             },[filteredtu])
     const columns=[ 
         {
