@@ -51,7 +51,7 @@ const Schedule = () =>{
         },[data])
 
         useEffect(()=>{
-            setFilteredDatatu(filtered.filter(d=>d.doctorsStatus === 'Pending'));
+            setFilteredDatatu(filtered.filter(d=>d.doctorsStatus === 'Approved'));
         },[filtered])
 
 
