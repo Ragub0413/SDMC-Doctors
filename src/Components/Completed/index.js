@@ -15,7 +15,7 @@ const CustomRow = (props) => {
             {show&&<Grid align="right" style={overlayStyle}>
     
                 <Grid sm={2} align="center" style={{ background: "#ffffff" }}>
-                <IconButton title="Edit" onClick={()=>props.handleOpen(props.data)}>
+                <IconButton title="Edit" onClick={()=>props.handleClickedOpen(props.data)}>
                 <AssignmentIcon/>
                 </IconButton>
                

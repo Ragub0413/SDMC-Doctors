@@ -25,9 +25,9 @@ const TodaysAppointment =()=>{
     const [remark,setRemark] =useState({doctorsRemark:''});
 
     const handleRemark =()=>{
-        // dispatch(cancelAppointment(values._id,{...appStat}));
-        // dispatch(doctorRemark(values._id,{...remark}))
-        // setOpen(false)
+        dispatch(cancelAppointment(values._id,{...appStat}));
+        dispatch(doctorRemark(values._id,{...remark}))
+        setOpen(false)
         console.log(values)
     }
     const handleOpen =(data)=>{

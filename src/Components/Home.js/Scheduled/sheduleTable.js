@@ -7,6 +7,7 @@ import { Typography, makeStyles,Button,
     DialogTitle, TextField,FormControlLabel,MenuItem} from "@material-ui/core";
 import tableIcons from '../../MaterialTable/MaterialTableIcons';
 import CustomRow from './index';
+import moment from 'moment'
 
 const Schedule = () =>{
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -54,6 +55,10 @@ const Schedule = () =>{
             setFilteredDatatu(filtered.filter(d=>d.doctorsStatus === 'Approved'));
         },[filtered])
 
+        const handleClickedOpen =(data)=>{
+            setOpen(true);
+            setValues(data)
+        }
 
     return(
         <Container component="main" maxWidth="lg">        
@@ -63,11 +68,51 @@ const Schedule = () =>{
             data={filtered}
             columns={columns}
             components={{
-                Row: props => <CustomRow {...props}/>
-              }}
-             />
+                Row: props => <CustomRow {...props} handleClickedOpen={handleClickedOpen}/>
+            }}
+        />
 
-           
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <Container component="main" maxWidth='lg'>
+                        <DialogTitle>
+                            <div className={classes.division}>
+                            <Typography className={classes.details}>Scheduled Appointment Details</Typography>
+                            </div>
+                        </DialogTitle>
+                        <Grid container spacing={2} justify="center">
+                        <Grid item xs={12}>
+                            <Typography className={classes.subdetails}>Client Details</Typography>
+                        </Grid>
+                        <Grid item xs={12} >
+                            <Typography className={classes.subdetails}> Name:</Typography>
+                            <Typography > {values.suffix === 'undefined'? values.lastName +", "+ values.firstName +" "+values.middleName:values.lastName +" "+values.suffix+", "+ values.firstName +" "+values.middleName}</Typography>
+                            <Typography className={classes.subdetails}>Contact Number:</Typography>
+                            <Typography >{values.contactNumber}</Typography>
+                            <Typography className={classes.subdetails}>Email Address:</Typography>
+                            <Typography >{values.email}</Typography>
+                        </Grid>
+                        <Grid item xs={12} >
+                            <div className={classes.division}>
+                            <Typography className={classes.details}>Appointment Details</Typography>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} >
+                            <Typography className={classes.subdetails}>Concern</Typography>
+                            <Typography >{values.concerns}</Typography>
+                            <Typography className={classes.subdetails}>Type of Consultation</Typography>
+                            <Typography >{values.concernType}</Typography>
+                            <Typography className={classes.subdetails}>Appointment Date:</Typography>
+                            <Typography>{moment(values.dateAndTime).format('D MMM YYYY')}</Typography>
+                            <Typography className={classes.subdetails}>Appointment Time:</Typography>
+                            <Typography >{moment(values.dateAndTime).format('h:mm a')}</Typography>
+                        </Grid>
+                    </Grid>
+                    <DialogActions>
+                            <Button variant="contained" color="primary" onClick={handleClose}>Close</Button>
+                        </DialogActions>
+                    </Container>
+                </Dialog>
+
         </Container>
     )
 }

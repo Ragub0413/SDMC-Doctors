@@ -19,7 +19,7 @@ const CustomRow = (props) => {
                 <IconButton title="Edit" onClick={()=>props.handleMenu(props.data)}>
                    <AttachEmailIcon/>
                 </IconButton>
-                <IconButton title="Edit" onClick={()=>alert(props.index)}>
+                <IconButton title="Edit" onClick={()=>props.handleClickedOpen(props.data)}>
                 <PreviewIcon/>
                 </IconButton>
                 </Grid>
