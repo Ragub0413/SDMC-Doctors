@@ -9,6 +9,7 @@ import tableIcons from '../MaterialTable/MaterialTableIcons';
 import CustomRow from './index';
 import { useDispatch } from "react-redux";
 import moment from 'moment'
+import emailjs from '@emailjs/browser';
 import {cancelAppointment,doctorStatAppointment} from '../Connection/Action/appointments'
 
 const ClientsTB = () =>{
@@ -20,14 +21,26 @@ const ClientsTB = () =>{
     const [openDecline,setOpenDecline]=useState(false)
     const [values,setValues]= useState([]);
     const [stas,setStats]=useState({doctorsStatus:'Approved'})
-    const [stasD,setStatsD]=useState({doctorsStatus:'Declined'})
+    const [stasD,setStatsD]=useState({doctorsStatus:'Cancelled'})
+    const [stasAppoint,setStatsAppoint]=useState({appointmentStatus:'Approved'})
+    const [stasCancel,setStatsCancel]=useState({appointmentStatus:'Declined'})
     const [filtered,setFilteredData]= useState([])
     const [filteredtu,setFilteredDatatu]= useState([])
     const [openMenu,setOpenMenu]=useState(false);
     const [open,setOpen] = useState(false);
     
     const handleMenu =(data)=>{
+
         setOpenMenu(true);
+
+        setValues({ 
+                firstName: data.firstName,
+                lastName: data.lastName,
+                dates: moment(data.dateAndTime).format('D MMM YYYY'),
+                timess: moment(data.dateAndTime).format('h:mm a'),
+                email: data.email
+        })
+                console.log(data)
         setValues(data)
       
     }
@@ -51,12 +64,16 @@ const ClientsTB = () =>{
         setOpenMenu(false);
     }
     const handleAcceptYes =()=>{
+        emailjs.send('service_vdtmbb6', 'template_mbwqyzp', values, 'user_Pja1vFlc7jtiv7rvHzl6w')
         dispatch(doctorStatAppointment(values._id,{...stas}))
+        dispatch(cancelAppointment(values._id,{...stasAppoint}))
         setOpenAccept(false)
         setOpenMenu(false)
     }
     const handleDeclineYes =()=>{
+        emailjs.send('service_vdtmbb6', 'template_5cw3p8b', values, 'user_Pja1vFlc7jtiv7rvHzl6w')
         dispatch(doctorStatAppointment(values._id,{...stasD}))
+        dispatch(cancelAppointment(values._id,{...stasCancel}))
         setOpenDecline(false)
         setOpenMenu(false)
         

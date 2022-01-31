@@ -42,11 +42,11 @@ const HomeMenu =()=>{
                         <Typography component="h1" variant="h6">Appointments for Today</Typography>
                         </Paper>
                     </Grid>
-                    <Grid item sm={6}>
+                    {/* <Grid item sm={6}>
                         <Paper className={classes.paper1} elevation={4} onClick={handleComplete}>
                         <Typography component="h1" variant="h6">Completed Appointment Records</Typography>
                         </Paper>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Paper>
         </Container>

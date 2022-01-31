@@ -125,17 +125,17 @@ const TodaysAppointment =()=>{
                             <Typography className={classes.subdetails}>Appointment Time:</Typography>
                             <Typography >{moment(values.dateAndTime).format('h:mm a')}</Typography> */}
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                         <TextField  name="doctorsRemark" label="Remark" 
                                 placeholder='Enter Remark for this patient' required
                                 value={values.doctorsRemark} 
                                 onChange={handleChange} 
                                 fullWidth  variant="outlined" />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
               <DialogActions>
-              <Button variant="contained" color="primary" className={classes.addbtn} onClick={handleRemark} >Submit</Button>
-              <Button variant="contained" color="secondary" className={classes.addbtn} onClick={handleClose} >Close</Button>
+              {/* <Button variant="contained" color="primary" className={classes.addbtn} onClick={handleRemark} >Submit</Button> */}
+              <Button variant="contained" color="primary" className={classes.addbtn} onClick={handleClose} >Close</Button>
            
               </DialogActions>
         </Container>
